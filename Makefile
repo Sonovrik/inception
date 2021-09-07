@@ -1,5 +1,17 @@
+COMPOSE_FILE=docker-compose.yml
+ENV=.env
+PATH_TO_BUILD=./srcs/
+
 all:
-	docker-compose up --build
+	docker-compose -f $(PATH_TO_BUILD)$(COMPOSE_FILE) --env-file $(PATH_TO_BUILD)$(ENV) up --build -d
+
 clean:
-	docker-compose down
-	docker system prune -a --volumes
+	docker-compose -f $(PATH_TO_BUILD)$(COMPOSE_FILE) --env-file $(PATH_TO_BUILD)$(ENV) down
+
+
+fclean: clean
+	docker system prune -f -a --volumes
+
+re: fclean all
+
+.PHONY: all clean fclean re

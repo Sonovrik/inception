@@ -1,0 +1,50 @@
+version: '3.9'
+
+services:
+
+  nginx:
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
+    container_name: nginx-container
+#    environment:
+#    volumes:
+    ports:
+    - '${NGINX_HOST_PORT}:${NGINX_CONTAINER_PORT}'
+    restart: always
+    networks:
+      - inception
+
+
+  mariadb:
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    container_name: mariadb-container
+    environment:
+      MARIADB_ROOT_LOGIN: '${MARIADB_ROOT_LOGIN}'
+      MARIADB_ROOT_PASS: '${MARIADB_ROOT_PASS}'
+      MARIADB_MY_LOGIN: '${MARIADB_MY_LOGIN}'
+      MARIADB_MY_PASS: '${MARIADB_MY_PASS}'
+    ports:
+      - '${MARIADB_HOST_PORT}:${MARIADB_CONTAINER_PORT}'
+#    volumes:
+    restart: always
+    networks:
+      - inception
+
+#  wordpress:
+#    build:
+#      context: ./requirements/wordpress
+#      dockerfile: Dockerfile
+#    container_name: wordpress-container
+##    environment:
+##    volumes:
+#    ports:
+#        -
+#    restart: always
+#    networks:
+#      - inception
+
+networks:
+  inception:
