@@ -33,18 +33,16 @@ services:
     networks:
       - inception
 
-#  wordpress:
-#    build:
-#      context: ./requirements/wordpress
-#      dockerfile: Dockerfile
-#    container_name: wordpress-container
-##    environment:
-##    volumes:
-#    ports:
-#        -
-#    restart: always
-#    networks:
-#      - inception
+  wordpress:
+   build:
+     context: ./requirements/wordpress
+     dockerfile: Dockerfile
+   container_name: wordpress-container
+#    environment:
+#    volumes:
+   restart: always
+   networks:
+     - inception
 
 networks:
   inception:

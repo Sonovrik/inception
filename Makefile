@@ -1,6 +1,6 @@
 COMPOSE_FILE=docker-compose.yml
 ENV=.env
-PATH_TO_BUILD=./srcs/
+PATH_TO_BUILD=srcs/
 
 all:
 	docker-compose -f $(PATH_TO_BUILD)$(COMPOSE_FILE) --env-file $(PATH_TO_BUILD)$(ENV) up --build -d

@@ -11,6 +11,7 @@ RUN apk add curl
 RUN apk add net-tools
 
 COPY ./tools/* /tmp/
+COPY ./start.sh /tmp/
 
 RUN mkdir /etc/nginx/ssl
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \

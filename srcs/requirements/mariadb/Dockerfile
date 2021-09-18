@@ -1,8 +1,8 @@
-FROM alpine
+FROM alpine:3.14
 
 RUN apk update
 RUN apk upgrade
-RUN apk add openrc -- no-cache
+RUN apk add openrc --no-cache
 
 RUN apk add mysql --no-cache
 RUN apk add mysql-client --no-cache
@@ -17,4 +17,4 @@ COPY ./conf /etc/my.cnf
 
 EXPOSE 3306
 
-CMD [ "sh", "start.sh"]
+CMD [ "sh", "start.sh" ]
