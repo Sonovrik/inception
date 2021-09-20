@@ -7,13 +7,16 @@ services:
       context: ./requirements/nginx
       dockerfile: Dockerfile
     container_name: nginx-container
-#    environment:
-#    volumes:
+    environment:
+      NGINX_LOGIN: '${NGINX_LOGIN}'
+      NGINX_PASS: '${NGINX_PASS}'
+    volumes:
+     - wp_data:/var/lib/wordpress
     ports:
-    - '${NGINX_HOST_PORT}:${NGINX_CONTAINER_PORT}'
+     - '${NGINX_HOST_PORT}:${NGINX_CONTAINER_PORT}'
     restart: always
     networks:
-      - inception
+     - inception
 
 
   mariadb:
@@ -28,21 +31,33 @@ services:
       MARIADB_MY_PASS: '${MARIADB_MY_PASS}'
     ports:
       - '${MARIADB_HOST_PORT}:${MARIADB_CONTAINER_PORT}'
-#    volumes:
+    volumes:
+      - db_data:/var/lib/mysql
     restart: always
     networks:
       - inception
 
   wordpress:
-   build:
-     context: ./requirements/wordpress
-     dockerfile: Dockerfile
-   container_name: wordpress-container
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+    container_name: wordpress-container
 #    environment:
-#    volumes:
-   restart: always
-   networks:
-     - inception
+    volumes:
+      - wp_data:/var/lib/wordpress
+    restart: always
+    networks:
+      - inception
 
 networks:
   inception:
+
+volumes:
+  db_data:
+    name: db_data
+
+  wp_data:
+    name: wp_data
+    driver: local
+    driver_opts:
+
